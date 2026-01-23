@@ -325,12 +325,12 @@ public class Client extends Person {
             }
 
             if (clientSource == null) {
-                System.out.println("❌ Client source non trouvé !");
+                System.out.println(" Client source non trouvé !");
                 return;
             }
 
             if (clientSource.getCempt() == null) {
-                System.out.println("❌ Le client source n'a pas de compte courant !");
+                System.out.println(" Le client source n'a pas de compte courant !");
                 return;
             }
 
@@ -365,13 +365,13 @@ public class Client extends Person {
             }
 
             if (compteDest == null) {
-                System.out.println("❌ Compte destination non trouvé !");
+                System.out.println(" Compte destination non trouvé !");
                 return;
             }
 
             // pas transfert  vers le même compte
             if (clientSource.getCempt().getCemptN().equalsIgnoreCase(numCompteDest)) {
-                System.out.println("❌ Impossible de transférer vers le même compte !");
+                System.out.println(" Impossible de transférer vers le même compte !");
                 return;
             }
 
@@ -387,13 +387,13 @@ public class Client extends Person {
 
             // Vérifications
             if (montant <= 0) {
-                System.out.println("❌ Le montant doit être positif !");
+                System.out.println(" Le montant doit être positif !");
                 return;
             }
 
             double soldeSource = clientSource.getCempt().getSolde();
             if (soldeSource < montant) {
-                System.out.println("❌ Solde insuffisant !");
+                System.out.println(" Solde insuffisant !");
                 System.out.println("- Votre solde : " + soldeSource + " DH");
                 System.out.println("- Montant demandé : " + montant + " DH");
                 return;
@@ -408,7 +408,7 @@ public class Client extends Person {
             String confirmation = scanner.nextLine().trim();
 
             if (!confirmation.equalsIgnoreCase("O")) {
-                System.out.println("❌ Transfert annulé !");
+                System.out.println(" Transfert annulé !");
                 return;
             }
 
@@ -419,7 +419,7 @@ public class Client extends Person {
             clientSource.getCempt().setSolde(nouveauSoldeSource);
             compteDest.setSolde(nouveauSoldeDest);
 
-            System.out.println("\n✅ TRANSFERT RÉUSSI !");
+            System.out.println("\n TRANSFERT RÉUSSI !");
             System.out.println("==================================");
             System.out.println("Compte source (" + clientSource.getCempt().getCemptN() + ") :");
             System.out.println("- Ancien solde : " + soldeSource + " DH");
@@ -430,10 +430,10 @@ public class Client extends Person {
             System.out.println("==================================");
 
         } catch (InputMismatchException e) {
-            System.err.println("❌ Erreur : Le montant doit être un nombre !");
+            System.err.println(" Erreur : Le montant doit être un nombre !");
             scanner.nextLine();
         } catch (Exception e) {
-            System.err.println("❌ Erreur lors du transfert : " + e.getMessage());
+            System.err.println(" Erreur lors du transfert : " + e.getMessage());
             e.printStackTrace();
         }
     }
