@@ -8,3 +8,7 @@ https://www.canva.com/design/DAG-2gY03SU/n9_fER7XkGPVfPTmDO3sjg/edit?utm_content
 trello : https://trello.com/invite/b/69660eb6f6b8431c42c27591/ATTIe785a0972f373fa73602545869966abcBB0AEC9E/ebank-java 
 
 
+Système Bancaire Java - MRXBank
+Une application bancaire complète développée en Java avec gestion des clients, comptes courants, comptes d'épargne, et opérations bancaires. 
+
+
