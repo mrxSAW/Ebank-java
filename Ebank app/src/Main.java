@@ -15,7 +15,7 @@ public class  Main {
             scheduler.scheduleAtFixedRate(() -> {
                 try {
                     Bank.appliquerInteretSurTousLesSavings();
-                    System.out.println(" Intérêt ajouté (toutes les 1 minute)");
+                   // System.out.println(" Intérêt ajouté (toutes les 1 minute)");
                 } catch (Exception e) {
                     System.err.println("Erreur dans le scheduler: " + e.getMessage());
                 }
@@ -36,7 +36,7 @@ public class  Main {
             System.out.println("========================="+bank.getNom()+"===========================");
             System.out.println("*********************************************************************");
             System.out.println("========================ENTRER votre choix========================== ");
-            System.out.println(" \n 1:ajouter un client  \n 2:afficher client \n 3:cree cempt \n 4:versser dans votre cempt \n 5:retrait \n 6:creat saving account  \n S:suprimer un cempt  \n E:exporter en csv  \n Q:quiter ");
+            System.out.println(" \n 1:ajouter un client  \n 2:afficher client \n 3:cree cempt \n 4:versser dans votre cempt \n 5:retrait \n 6:creat saving account  \n 7:transfert entre comptes  \n S:suprimer un cempt  \n E:exporter en csv  \n Q:quiter ");
             choix=scanner.nextLine();
             if(choix.equals("1")){
                 Client Nouveauclient= Client.ajouterclient(scanner);
@@ -129,9 +129,13 @@ public class  Main {
                 }else {
                     System.out.println("Erreur : cette client ne corresponde pas !");
                 }
-
-
             }
+
+            else if(choix.equals("7")){
+                Client.transfererArgent(scanner);
+            }
+
+
 
 
             else if(choix.equalsIgnoreCase("S")){

@@ -79,22 +79,34 @@ public class Bank {
         String nomFichier = "C:\\Users\\arkka\\Downloads\\comptes_" + date + ".csv";
 
         try (FileWriter writer = new FileWriter(nomFichier)) {
-            // En-tête CSV
-            writer.append("Numéro de compte,Nom du client,Type de compte,Solde (DH)\n");
+            // Définir le séparateur (point-virgule pour Excel français)
+            final String SEPARATEUR = ";";
+
+            // En-tête CSV avec séparateur personnalisé
+            writer.append("Numéro de compte" + SEPARATEUR +
+                    "Nom du client" + SEPARATEUR +
+                    "Type de compte" + SEPARATEUR +
+                    "Solde (DH)" + "\n");
 
             int totalComptes = 0;
 
             // Comptes normaux
             for (Client client : Client.getListclients()) {
                 if (client.getCempt() != null) {
-                    // l'utilisation du point décimal avec DecimalFormat
                     java.text.DecimalFormat df = new java.text.DecimalFormat("#0.00");
                     df.setDecimalSeparatorAlwaysShown(true);
 
-                    writer.append(String.format("\"%s\",\"%s\",\"Compte Courant\",%s\n",
+                    // Remplacer la virgule décimale par un point pour Excel
+                    String soldeFormate = df.format(client.getCempt().getSolde())
+                            .replace(',', '.');
+
+                    writer.append(String.format("\"%s\"%s\"%s\"%s\"Compte Courant\"%s%s\n",
                             client.getCempt().getCemptN(),
+                            SEPARATEUR,
                             client.getNom(),
-                            df.format(client.getCempt().getSolde())));
+                            SEPARATEUR,
+                            SEPARATEUR,
+                            soldeFormate));
                     totalComptes++;
                 }
             }
@@ -105,29 +117,34 @@ public class Bank {
                     java.text.DecimalFormat df = new java.text.DecimalFormat("#0.00");
                     df.setDecimalSeparatorAlwaysShown(true);
 
-                    writer.append(String.format("\"%s\",\"%s\",\"Compte Épargne (%d%%)\",%s\n",
+                    String soldeFormate = df.format(client.getSavingsAccount().getSolde())
+                            .replace(',', '.');
+
+                    writer.append(String.format("\"%s\"%s\"%s\"%s\"Compte Épargne (%d%%)\"%s%s\n",
                             client.getSavingsAccount().getCemptN(),
+                            SEPARATEUR,
                             client.getNom(),
+                            SEPARATEUR,
                             client.getSavingsAccount().getTauxInterer(),
-                            df.format(client.getSavingsAccount().getSolde())));
+                            SEPARATEUR,
+                            soldeFormate));
                     totalComptes++;
                 }
             }
 
             System.out.println("✓ Fichier CSV créé avec succès : " + nomFichier);
+            System.out.println("✓ Séparateur utilisé : " + SEPARATEUR);
             System.out.println("✓ Nombre total de comptes exportés : " + totalComptes);
+            System.out.println("✓ Astuce : Ouvrez avec Excel et choisir ';' comme séparateur");
 
         } catch (IOException e) {
             System.err.println("✗ Erreur lors de la création du fichier CSV : " + e.getMessage());
-
             e.printStackTrace();
         } catch (Exception e) {
             System.err.println("✗ Erreur inattendue : " + e.getMessage());
             e.printStackTrace();
         }
     }
-
-
 
 
 
